@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ meal }} Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Student Panel</h3>
+    <a href="/student">Dashboard</a>
+    <a href="/student/attendance">Mark Attendance</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+    <h1>{{ meal }} Attendance</h1>
+    <p>Scan the QR code to mark attendance</p>
+
+    <img src="{{ url_for('static', filename='images/' + qr_file) }}"
+         class="qr-img">
+
+    <br><br>
+
+    <a href="/student/attendance/process/{{ meal.lower() }}"
+       class="stat-card">
+       Simulate Scan
+    </a>
+</div>
+
+</body>
+</html>

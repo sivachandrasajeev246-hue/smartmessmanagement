@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3 class="logo">Manager Panel</h3>
+    <a href="/manager">Dashboard</a>
+    <a href="/manager/menu">Update Menu</a>
+    <a href="/manager/attendance">View Attendance</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>Update Today's Menu 🍽</h1>
+    <p>Manage breakfast, lunch and dinner items.</p>
+
+    <div class="card-container">
+
+        <!-- BREAKFAST -->
+        <div class="stat-card menu-card">
+            <h3>Breakfast ☀</h3>
+
+            <form method="POST" class="menu-form">
+                <input type="hidden" name="category" value="breakfast">
+                <input type="text" name="dish_name" placeholder="Add Breakfast Dish" required>
+                <button type="submit">Add</button>
+            </form>
+
+            <div class="dish-section">
+                {% for dish in breakfast %}
+                    <div class="dish-item">
+                        <span>{{ dish[1] }}</span>
+                        <a href="/manager/menu/delete/{{ dish[0] }}" class="delete-btn">✖</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- LUNCH -->
+        <div class="stat-card menu-card">
+            <h3>Lunch 🍛</h3>
+
+            <form method="POST" class="menu-form">
+                <input type="hidden" name="category" value="lunch">
+                <input type="text" name="dish_name" placeholder="Add Lunch Dish" required>
+                <button type="submit">Add</button>
+            </form>
+
+            <div class="dish-section">
+                {% for dish in lunch %}
+                    <div class="dish-item">
+                        <span>{{ dish[1] }}</span>
+                        <a href="/manager/menu/delete/{{ dish[0] }}" class="delete-btn">✖</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- DINNER -->
+        <div class="stat-card menu-card">
+            <h3>Dinner 🌙</h3>
+
+            <form method="POST" class="menu-form">
+                <input type="hidden" name="category" value="dinner">
+                <input type="text" name="dish_name" placeholder="Add Dinner Dish" required>
+                <button type="submit">Add</button>
+            </form>
+
+            <div class="dish-section">
+                {% for dish in dinner %}
+                    <div class="dish-item">
+                        <span>{{ dish[1] }}</span>
+                        <a href="/manager/menu/delete/{{ dish[0] }}" class="delete-btn">✖</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

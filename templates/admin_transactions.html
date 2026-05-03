@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="main-content">
+
+    <h1>Full Transaction History</h1>
+
+    {% if transactions %}
+    <table class="transaction-table">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for t in transactions %}
+            <tr>
+                <td>{{ t[1] }}</td>
+                <td class="{% if t[0] < 0 %}amount-negative{% else %}amount-positive{% endif %}">
+                    ₹ {{ t[0] }}
+                </td>
+                <td>{{ t[2] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No transactions found.</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

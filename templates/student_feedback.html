@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Give Feedback</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Student Panel</h3>
+    <a href="/student">Dashboard</a>
+    <a href="/student/attendance">Mark Attendance</a>
+    <a href="/student/menu">View Menu</a>
+    <a href="/student/feedback">Give Feedback</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>Give Feedback ⭐</h1>
+
+    {% if meals %}
+
+        <form method="POST">
+
+            {% for meal, dishes in meals.items() %}
+                
+                {% if dishes %}
+                <div class="stat-card menu-card">
+                    <h3>{{ meal.capitalize() }}</h3>
+
+                    {% for dish in dishes %}
+                        <div class="rating-form">
+
+                            <span><strong>{{ dish[1] }}</strong></span>
+
+                            <div class="star-rating">
+                                {% for i in range(1,6) %}
+                                    <label>
+                                        <input type="radio"
+                                               name="rating_{{ dish[0] }}"
+                                               value="{{ i }}">
+                                        {{ i }}★
+                                    </label>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            {% endfor %}
+
+            <br>
+            <button type="submit" class="result-btn">Submit Feedback</button>
+
+        </form>
+
+    {% else %}
+        <p>You have not attended any meals today.</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

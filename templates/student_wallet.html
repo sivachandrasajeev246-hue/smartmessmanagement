@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet Balance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3 class="logo">Student Panel</h3>
+    <a href="/student">Dashboard</a>
+    <a href="/student/wallet">Wallet Balance</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+    <h1>Wallet Balance 💰</h1>
+
+    <div class="wallet-balance-card">
+        <p>₹ {{ balance }}</p>
+    </div>
+</div>
+
+</body>
+</html>

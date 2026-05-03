@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Meal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Student Panel</h3>
+    <a href="/student">Dashboard</a>
+    <a href="/student/attendance">Mark Attendance</a>
+    <a href="/student/menu">View Menu</a>
+    <a href="/student/feedback">Give Feedback</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+    <h1>Select Meal</h1>
+
+    <div class="card-container">
+        <a href="/student/qr/breakfast" class="stat-card">Breakfast</a>
+        <a href="/student/qr/lunch" class="stat-card">Lunch</a>
+        <a href="/student/qr/dinner" class="stat-card">Dinner</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Student Panel</h3>
+    <a href="/student">Dashboard</a>
+    <a href="/student/menu">View Menu</a>
+    <a href="/student/attendance">Mark Attendance</a>
+    <a href="/student/feedback">Give Feedback</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>Today's Menu 🍽️</h1>
+
+    {% if breakfast %}
+        <h2>🍳 Breakfast</h2>
+        <div class="card-container">
+            {% for dish in breakfast %}
+                <div class="stat-card">
+                    {{ dish[1] }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if lunch %}
+        <h2>🍛 Lunch</h2>
+        <div class="card-container">
+            {% for dish in lunch %}
+                <div class="stat-card">
+                    {{ dish[1] }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if dinner %}
+        <h2>🌙 Dinner</h2>
+        <div class="card-container">
+            {% for dish in dinner %}
+                <div class="stat-card">
+                    {{ dish[1] }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if not breakfast and not lunch and not dinner %}
+        <p>No menu published for today.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

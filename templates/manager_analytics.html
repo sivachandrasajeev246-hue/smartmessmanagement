@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+
+    <h3>
+        {% if session['role'] == 'admin' %}
+            Admin Panel
+        {% else %}
+            Manager Panel
+        {% endif %}
+    </h3>
+
+    <a href="/{{ session['role'] }}">Dashboard</a>
+
+    {% if session['role'] == 'manager' %}
+        <a href="/manager/attendance">View Attendance</a>
+        <a href="/manager/menu">Update Menu</a>
+        <a href="/manager/feedback">Check Feedback</a>
+    {% endif %}
+
+    <a href="/manager/analytics">View Reports</a>
+
+    <a href="/logout" class="logout-btn">Logout</a>
+
+</div>
+
+<div class="main-content">
+
+    <h1 style="color:white;">Analytics Dashboard 📊</h1>
+
+    <!-- SUMMARY CARDS -->
+    <div class="card-container">
+        <div class="stat-card">
+            <h3>Total Revenue</h3>
+            <p>₹{{ total_revenue }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Feedback</h3>
+            <p>{{ total_feedback }}</p>
+        </div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+        <a href="/manager/export" class="result-btn">Download CSV Report</a>
+    </div>
+
+    <!-- ATTENDANCE TREND -->
+    <div class="stat-card menu-card">
+        <h3 style="color:white;">Attendance Trend</h3>
+        <canvas id="attendanceChart"></canvas>
+    </div>
+
+    <!-- REVENUE TREND -->
+    <div class="stat-card menu-card">
+        <h3 style="color:white;">Revenue Trend</h3>
+        <canvas id="revenueChart"></canvas>
+    </div>
+
+    <!-- DISH POPULARITY -->
+    <div class="stat-card menu-card">
+        <h3 style="color:white;">Dish Popularity</h3>
+        <canvas id="popularityChart"></canvas>
+    </div>
+
+</div>
+
+<script>
+
+Chart.defaults.color = "white";
+Chart.defaults.borderColor = "rgba(255,255,255,0.2)";
+
+
+// ================= Attendance Line Chart =================
+const attendanceLabels = {{ attendance_data | map(attribute='date') | list | tojson }};
+const attendanceCounts = {{ attendance_data | map(attribute='count') | list | tojson }};
+
+new Chart(document.getElementById('attendanceChart'), {
+    type: 'line',
+    data: {
+        labels: attendanceLabels,
+        datasets: [{
+            label: 'Attendance',
+            data: attendanceCounts,
+            fill: true,
+            tension: 0.4,
+            backgroundColor: 'rgba(54,162,235,0.2)',
+            borderColor: 'rgba(54,162,235,1)',
+            borderWidth: 2,
+            pointRadius: 5
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: {
+            duration: 1500,
+            easing: 'easeInOutQuart'
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+// ================= Revenue Line Chart =================
+const revenueLabels = {{ revenue_data | map(attribute='date') | list | tojson }};
+const revenueAmounts = {{ revenue_data | map(attribute='amount') | list | tojson }};
+
+new Chart(document.getElementById('revenueChart'), {
+    type: 'line',
+    data: {
+        labels: revenueLabels,
+        datasets: [{
+            label: 'Revenue (₹)',
+            data: revenueAmounts,
+            fill: true,
+            tension: 0.4,
+            backgroundColor: 'rgba(75,192,192,0.2)',
+            borderColor: 'rgba(75,192,192,1)',
+            borderWidth: 2,
+            pointRadius: 5
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: {
+            duration: 1500
+        }
+    }
+});
+
+
+// ================= Dish Popularity Doughnut =================
+const dishLabels = {{ dish_popularity | map(attribute='dish') | list | tojson }};
+const dishRatings = {{ dish_popularity | map(attribute='avg_rating') | list | tojson }};
+
+new Chart(document.getElementById('popularityChart'), {
+    type: 'doughnut',
+    data: {
+        labels: dishLabels,
+        datasets: [{
+            data: dishRatings,
+            backgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+                '#4BC0C0',
+                '#9966FF',
+                '#FF9F40'
+            ],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: {
+            duration: 1500
+        },
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    color: 'white'
+                }
+            },
+            tooltip: {
+                bodyColor: 'white',
+                titleColor: 'white',
+                backgroundColor: 'rgba(0,0,0,0.7)',
+                callbacks: {
+                    label: function(context) {
+                        return context.label + " (Avg: " + context.raw + ")";
+                    }
+                }
+            }
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>

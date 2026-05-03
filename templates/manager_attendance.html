@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h3>Manager Panel</h3>
+        <a href="/manager">Dashboard</a>
+        <a href="/manager/attendance">View Attendance</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <h1>Attendance Report 📊</h1>
+        <p>Filter attendance by date</p>
+
+        <!-- DATE FILTER -->
+        <form method="POST" class="filter-form">
+            <input type="date" name="attendance_date" value="{{ selected_date }}" required>
+            <button type="submit">Filter</button>
+        </form>
+
+        <!-- ATTENDANCE CARDS -->
+        <div class="card-container">
+
+            <div class="stat-card">
+                <h3>Breakfast</h3>
+                <p>{{ breakfast }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Lunch</h3>
+                <p>{{ lunch }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Dinner</h3>
+                <p>{{ dinner }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total</h3>
+                <p>{{ total }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

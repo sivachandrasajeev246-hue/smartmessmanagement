@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Today's Feedback</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Manager Panel</h3>
+    <a href="/manager">Dashboard</a>
+    <a href="/manager/attendance">View Attendance</a>
+    <a href="/manager/menu">Update Menu</a>
+    <a href="/manager/feedback">Check Feedback</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>Today's Feedback</h1>
+
+    {% if feedbacks %}
+        {% for f in feedbacks %}
+            <div class="stat-card">
+                <p><strong>Student:</strong> {{ f[0] }}</p>
+                <p><strong>Dish:</strong> {{ f[1] }}</p>
+                <p><strong>Rating:</strong> {{ f[2] }} ⭐</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No feedback available today.</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

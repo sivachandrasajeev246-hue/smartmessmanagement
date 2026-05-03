@@ -1,0 +1,111 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Manager Panel</h3>
+
+    <a href="/manager/menu">Update Menu</a>
+    <a href="/manager/attendance">View Attendance</a>
+    <a href="/manager/feedback">Check Feedback</a>
+    <a href="/manager/analytics">Analytics</a>
+    <a href="manager/ai-prediction">AI predictions</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+    <h1>Welcome, Mess Manager 👋</h1>
+    <p>Manage mess operations and monitor daily activities.</p>
+
+    <div class="card-container">
+        <div class="stat-card">
+            <h3>Today's Attendance</h3>
+            <p>{{ todays_attendance }} Students</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Menu Updates</h3>
+            <p>{{ menu_updates }} Changes</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Feedback</h3>
+            <p>{{ pending_feedback }} Reviews</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+</script>
+
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Manager Panel</h3>
+
+    <a href="/manager/menu">Update Menu</a>
+    <a href="/manager/attendance">View Attendance</a>
+    <a href="/manager/feedback">Check Feedback</a>
+    <a href="/manager/analytics">Analytics</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+    <a href="/manager/ai-insight">AI Insights 📊</a>
+</div>
+
+<div class="main-content">
+    <h1>Welcome, Mess Manager 👋</h1>
+    <p>Manage mess operations and monitor daily activities.</p>
+
+    <div class="card-container">
+
+        <div class="stat-card">
+            <h3>Today's Attendance</h3>
+            <p>{{ todays_attendance }} Students</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Menu Updates</h3>
+            <p>{{ menu_updates }} Changes</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Feedback</h3>
+            <p>{{ pending_feedback }} Reviews</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+</script>
+
+</body>
+</html>

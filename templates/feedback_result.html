@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="main-content" style="display:flex; justify-content:center; align-items:center;">
+
+    <div class="result-card {{ status }}">
+        <h1>
+            {% if status == "success" %}
+            Feedback Given 🎉
+            {% else %}
+                Error ⚠️
+            {% endif %}
+        </h1>
+
+        <p>{{ message }}</p>
+
+        <a href="/student" class="result-btn">Back to Dashboard</a>
+    </div>
+
+</div>
+
+</body>
+</html>

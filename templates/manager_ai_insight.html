@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Insight Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .ai-card {
+            background: rgba(255,255,255,0.08);
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .ai-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .highlight {
+            font-size: 26px;
+            font-weight: bold;
+            color: #00ffd5;
+        }
+
+        .sub-text {
+            color: #e0e0e0;
+            margin-top: 8px;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .low { background: #ff4d4d; }
+        .medium { background: #ffaa00; }
+        .high { background: #00cc66; }
+
+        .logic-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .metric-row {
+            margin-top: 6px;
+        }
+    </style>
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Manager Panel</h3>
+    <a href="/manager">Dashboard</a>
+    <a href="/manager/ai-insight">AI Insights</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>🧠 AI Insight Dashboard</h1>
+
+    <!-- ATTENDANCE -->
+    <div class="ai-card">
+        <div class="ai-title">📊 Attendance Intelligence</div>
+
+        <p>
+            Average Daily Attendance ({{ total_days }} Days History):
+            <span class="highlight">{{ average_per_day }}</span>
+        </p>
+
+        <div class="metric-row">Participation Spread: {{ participation_spread }}</div>
+        <div class="metric-row">📊 Stability Index: <strong>{{ stability_index }}</strong></div>
+        <div class="metric-row">📈 Growth Rate: <strong>{{ growth_rate }}%</strong></div>
+        <div class="metric-row">⚡ Volatility Score: <strong>{{ volatility_score }}</strong></div>
+
+        <div class="metric-row">
+            <strong>Data Confidence:</strong>
+            <span class="badge {{ confidence|lower }}">
+                {{ confidence }}
+            </span>
+        </div>
+
+        <br>
+
+        {% for meal, count in attendance_data.items() %}
+            <p>
+                <strong>{{ meal.capitalize() }}</strong> :
+                {{ count }} students
+                ({{ attendance_summary[meal] }}%)
+            </p>
+        {% endfor %}
+
+        <br>
+        <canvas id="mealChart" height="120"></canvas>
+
+        <p class="sub-text">
+            🔎 Highest Participation:
+            <strong>{{ top_meal.capitalize() if top_meal else "N/A" }}</strong>
+        </p>
+    </div>
+
+    <!-- DISH ANALYSIS -->
+    <div class="ai-card">
+        <div class="ai-title">🍽️ Dish Performance Intelligence</div>
+
+        <p>⭐ Top Rated Dish:</p>
+        <p class="highlight">{{ top_dish if top_dish else "N/A" }}</p>
+
+        <div class="metric-row">Average Rating: {{ top_rating }}</div>
+        <div class="metric-row">😊 Satisfaction Score: {{ satisfaction_score }}</div>
+        <div class="metric-row">⚠ Dish Risk Score: {{ dish_risk_score }}</div>
+
+        <div class="metric-row">
+            <strong>Rating Reliability:</strong>
+            <span class="badge {{ reliability|lower }}">
+                {{ reliability }}
+            </span>
+        </div>
+    </div>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <div class="ai-card">
+        <div class="ai-title">📌 Executive Summary</div>
+        <ul>
+            {% for point in summary %}
+                <li>{{ point }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- EXPLAINABILITY BLOCK -->
+    <div class="ai-card">
+        <div class="ai-title">🔎 Explainable Logic Breakdown</div>
+        <div class="logic-box">
+            <ul>
+                {% for item in explainability %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const ctx = document.getElementById('mealChart');
+
+if (ctx) {
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Breakfast', 'Lunch', 'Dinner'],
+            datasets: [{
+                label: 'Average Students Per Day',
+                data: [
+                    {{ breakfast_count }},
+                    {{ lunch_count }},
+                    {{ dinner_count }}
+                ],
+                backgroundColor: ['#00ffd5', '#ffaa00', '#ff4d4d']
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { labels: { color: 'white' } }
+            },
+            scales: {
+                x: { ticks: { color: 'white' } },
+                y: { ticks: { color: 'white' } }
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>

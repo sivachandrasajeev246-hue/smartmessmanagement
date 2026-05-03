@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3>Student Panel</h3>
+
+    <a href="/student/menu">View Menu</a>
+    <a href="/student/attendance">Mark Attendance</a>
+
+    {% if not rated_meals %}
+        <a href="/student/feedback">Give Feedback</a>
+    {% endif %}
+
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>Welcome, Student 👋</h1>
+    <p>Smart Mess Management System</p>
+
+    <div class="card-container">
+
+        <div class="stat-card">
+            <h3>Meals Taken</h3>
+            <p>{{ meals_taken }}</p>
+        </div>
+
+        <a href="/student/wallet" class="card-link">
+            <div class="stat-card">
+                <h3>Wallet Balance</h3>
+                <p>₹{{ wallet_balance }}</p>
+            </div>
+        </a>
+
+        {% if rated_meals %}
+            <div class="stat-card">
+                <h3>Feedback</h3>
+                <p style="color: green; font-weight: bold;">
+                    Feedback submitted for:
+                    {{ rated_meals | join(', ') | title }}
+                </p>
+            </div>
+        {% else %}
+            <a href="/student/feedback" class="card-link">
+                <div class="stat-card">
+                    <h3>Give Feedback</h3>
+                    <p style="color: red; font-weight: bold;">
+                        Pending
+                    </p>
+                </div>
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<script>
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3 class="logo">Admin Panel</h3>
+
+    <a href="/admin/students">Manage Users</a>
+    <a href="/manager/analytics">View Reports</a>
+
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+
+<div class="main-content">
+    <h1>Welcome, Admin 👑</h1>
+    <p>System administration and overall monitoring.</p>
+
+    <div class="card-container">
+        <div class="stat-card">
+            <h3>Total Users</h3>
+            <p>{{ total_users }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Active Managers</h3>
+            <p>{{ active_managers }}</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+</script>
+
+</body>
+</html>

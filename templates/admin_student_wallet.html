@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Wallet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+    <h3 class="logo">Admin Panel</h3>
+    <a href="/admin">Dashboard</a>
+    <a href="/admin/students">Back to Students</a>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div class="main-content">
+    <h1>{{ name }}'s Wallet</h1>
+    <p>{{ email }}</p>
+
+    <div class="wallet-balance-card">
+        <h2>Current Balance</h2>
+        <p>₹ {{ balance }}</p>
+    </div>
+    <a href="/admin/student/{{ request.view_args.student_id }}/transactions"
+        class="result-btn"
+        style="margin-top:20px; display:inline-block;">
+        View Full Transaction History
+    </a>
+
+    <!-- <div class="transaction-section">
+        <h2>Transactions</h2>
+
+        <table class="transaction-table">
+            <tr>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+
+            {% for t in transactions %}
+            <tr>
+                <td>{{ t[1] }}</td>
+                <td>₹ {{ t[0] }}</td>
+                <td>{{ t[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div> -->
+
+</div>
+
+</body>
+</html>
